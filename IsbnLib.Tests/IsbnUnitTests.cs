@@ -16,6 +16,13 @@ namespace IsbnLib.Tests
             _processor = new IsbnProcessorStud();
         }
 
+        //[Fact]
+        //public void TestEmptyIsbnString()
+        //{
+
+        //    Assert.Equal("https://amzn.com/9781506711980", _processor.CreateBookUrl("", "9781506711980"));
+        //}
+
         [Fact]
         public void TestCreateBookUrl()
         {
@@ -63,6 +70,41 @@ namespace IsbnLib.Tests
         public void TestValidIsbn13String(string isbn)
         {   
             Assert.True(IsbnProcessorStud.IsValidIsbn13(isbn));
+        }
+
+
+        [Theory]
+        [InlineData(1506727549)]
+        public void TestConvertIsbn10ToIsbn13Int(int isbn)
+        {
+            var isbnString = isbn.ToString();
+            var isbn13 = IsbnProcessorStud.ConvertTo13(isbnString);
+            Assert.Equal("9781506727547", isbn13);
+        }
+
+        [Theory]
+        [InlineData("1506727549")]
+        public void TestConvertIsbn10ToIsbn13String(string isbn)
+        {
+            var isbn13 = IsbnProcessorStud.ConvertTo13(isbn);
+            Assert.Equal("9781506727547", isbn13);
+        }
+
+        [Theory]
+        [InlineData(9781506727547)]
+        public void TestConvertIsbn13ToIsbn10Int(double isbn)
+        {
+            var isbnString = isbn.ToString();
+            var isbn13 = IsbnProcessorStud.ConvertTo10(isbnString);
+            Assert.Equal("1506727549", isbn13);
+        }
+
+        [Theory]
+        [InlineData("9781506727547")]
+        public void TestConvertIsbn13ToIsbn10String(string isbn)
+        {
+            var isbn13 = IsbnProcessorStud.ConvertTo10(isbn);
+            Assert.Equal("1506727549", isbn13);
         }
     }
 }

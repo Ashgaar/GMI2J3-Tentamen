@@ -8,6 +8,12 @@ namespace IsbnLib.Tests
 {
     public class UnitTestMock
     {
+        private ILibraryDbService<string> _libraryDbService;
+        public UnitTestMock()
+        {
+            //_libraryDbService = new LibraryDbServiceMock();
+        }
+        
         [Fact]
         public void Test()
         {

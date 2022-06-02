@@ -208,16 +208,23 @@ namespace IsbnLib.Controller
             string result = string.Empty;
 
             // error control?
-
-            switch (isbn.Length)
+            try
             {
-                case 10:
-                    result = ConvertTo13(isbn);
-                    break;
-                case 13:
-                    result = ConvertTo10(isbn);
-                    break;
+                switch (isbn.Length)
+                {
+                    case 10:
+                        result = ConvertTo13(isbn);
+                        break;
+                    case 13:
+                        result = ConvertTo10(isbn);
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid input: " + ex.Message);
+            }
+
 
             return result;
         }
@@ -242,7 +249,7 @@ namespace IsbnLib.Controller
         /// </summary>
         /// <param name="isbn13">code to convert</param>
         /// <returns>empty if the parameter is invalid, otherwise the converted isbn10 value</returns>
-        private static string ConvertTo10(string isbn13)
+        public static string ConvertTo10(string isbn13)
         {
             string isbn10 = string.Empty;
             Int64 temp;
