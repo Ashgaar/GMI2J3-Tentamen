@@ -44,6 +44,11 @@ namespace IsbnLib.Controller
         public bool TryValidate(string isbn)
         {
             bool result = false;
+            if (isbn == null)
+            {
+                result = false;
+            }
+             
             try
             {
                 switch (isbn.Length)
@@ -113,7 +118,7 @@ namespace IsbnLib.Controller
         /// </summary>
         /// <param name="isbn">code to strip/replace characters from</param>
         /// <returns>stripped/replaced string</returns>
-        private static string TryStrip(string isbn)
+        public static string TryStrip(string isbn)
         {
             // replace everything except 0-9, x-X
             string strippedIsbn = Regex.Replace(isbn, @"[^0-9|x|X]", "");
