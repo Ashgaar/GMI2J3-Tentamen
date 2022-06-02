@@ -9,9 +9,11 @@ namespace IsbnLib.Tests
     public class UnitTestMock
     {
         [Fact]
-        public void Test1()
+        public void Test()
         {
 
-        }        
+        }
+
+
     }
 }

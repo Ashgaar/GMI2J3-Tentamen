@@ -44,16 +44,23 @@ namespace IsbnLib.Controller
         public bool TryValidate(string isbn)
         {
             bool result = false;
-
-            switch (isbn.Length)
+            try
             {
-                case 10:
-                    result = IsValidIsbn10(isbn);
-                    break;
-                case 13:
-                    result = IsValidIsbn13(isbn);
-                    break;
+                switch (isbn.Length)
+                {
+                    case 10:
+                        result = IsValidIsbn10(isbn);
+                        break;
+                    case 13:
+                        result = IsValidIsbn13(isbn);
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid ISBN: " + ex.Message);
+            }
+
 
             return result;
         }
@@ -66,10 +73,17 @@ namespace IsbnLib.Controller
         /// <returns>true if valid, otherwise false</returns>
         public bool TryValidate(Int64 isbn)
         {
-            if (isbn.ToString().Length < 10)
-                return TryValidate(isbn.ToString().PadLeft(10, '0'));
-            else
-                return TryValidate(isbn.ToString());
+            try{
+                if (isbn.ToString().Length < 10)
+                    return TryValidate(isbn.ToString().PadLeft(10, '0'));
+                else
+                    return TryValidate(isbn.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid ISBN: " + ex.Message);
+                return false;
+            }
         }
 
 
@@ -117,7 +131,7 @@ namespace IsbnLib.Controller
         /// </summary>
         /// <param name="isbn10">code to validate</param>
         /// <returns>true if valid isbn10, otherwise false</returns>
-        private static bool IsValidIsbn10(string isbn10)
+        public static bool IsValidIsbn10(string isbn10)
         {
             bool result = false;
 
@@ -148,7 +162,7 @@ namespace IsbnLib.Controller
         /// </summary>
         /// <param name="isbn13">code to validate</param>
         /// <returns>true if valid isbn13, otherwise false</returns>
-        private static bool IsValidIsbn13(string isbn13)
+        public static bool IsValidIsbn13(string isbn13)
         {
             bool result = false;
 
@@ -256,7 +270,7 @@ namespace IsbnLib.Controller
         /// </summary>
         /// <param name="isbn10">code to convert</param>
         /// <returns>empty if the parameter is invalid, otherwise the converted isbn13 value</returns>
-        private static string ConvertTo13(string isbn10)
+        public static string ConvertTo13(string isbn10)
         {
             string isbn13 = string.Empty;
             Int64 temp;
