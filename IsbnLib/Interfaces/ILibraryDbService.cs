@@ -9,4 +9,4 @@ namespace IsbnLib.Interfaces
 
         List<T> Search(T searchFilter);
     }
-}
+}   
